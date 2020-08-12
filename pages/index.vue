@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 90%">
+  <div style="width: 90%;">
     <check-out />
     <!--    <vue-paycard :value-fields="valueFields" />-->
     <!--    <credit-card-form />-->

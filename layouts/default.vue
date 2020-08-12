@@ -12,7 +12,7 @@
         </template>
       </header-button>
     </div>
-    <nuxt />
+    <nuxt style="width: 95%; max-width: 1024px;" />
   </div>
 </template>
 
