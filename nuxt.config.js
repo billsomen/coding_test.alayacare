@@ -32,6 +32,7 @@ export default {
   plugins: [
     '@/plugins/vuesax',
     { src: '@/plugins/vue-paycard.js', mode: 'client' },
+    { src: '@/plugins/vue-cat-carousel.js', mode: 'client' },
   ],
   /*
    ** Nuxt.js dev-modules
