@@ -29,7 +29,10 @@ export default {
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
-  plugins: ['@/plugins/vuesax'],
+  plugins: [
+    '@/plugins/vuesax',
+    { src: '@/plugins/vue-paycard.js', mode: 'client' },
+  ],
   /*
    ** Nuxt.js dev-modules
    */

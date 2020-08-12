@@ -1,20 +1,24 @@
 <template>
   <div>
-    Content here
+    <check-out />
+    <!--    <vue-paycard :value-fields="valueFields" />-->
+    <credit-card-form />
   </div>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
-import VuesaxLogo from '~/components/VuesaxLogo.vue'
-
+import CreditCardForm from '../components/CreditCardForm'
+import CheckOut from '../components/CheckOut'
 export default {
-  components: {
-    Logo,
-    VuesaxLogo,
-  },
+  components: { CheckOut, CreditCardForm },
   data: () => ({
-    option: true,
+    valueFields: {
+      cardName: 'VISA',
+      cardNumber: '42424242424242424242',
+      cardMonth: '',
+      cardYear: '',
+      cardCvv: '454',
+    },
   }),
 }
 </script>

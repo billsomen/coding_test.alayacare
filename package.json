@@ -12,7 +12,9 @@
     "test": "jest"
   },
   "dependencies": {
+    "@bit/lusaxweb.vuesax.vs-tabs": "^3.8.62",
     "@nuxtjs/pwa": "^3.0.0-beta.20",
+    "eslint": "^6.8.0",
     "nuxt": "^2.13.0",
     "vue-paycard": "^0.3.0",
     "vuesax": "^4.0.1-alpha.23"
@@ -26,7 +28,6 @@
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^26.0.1",
-    "eslint": "^7.2.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-nuxt": "^1.0.0",
     "eslint-plugin-prettier": "^3.1.4",

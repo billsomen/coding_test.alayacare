@@ -50,7 +50,7 @@ body {
   margin-bottom: 10px;
   align-items: center;
   margin-top: 20px;
-  /*padding: 0 5px 0 5px;*/
+  padding: 0 5px 0 5px;
   border-radius: 30px;
   border: 1px solid #ebeef5;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
