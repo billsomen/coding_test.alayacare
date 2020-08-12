@@ -4,13 +4,11 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border: 1px solid grey;
-      padding: 0 5px;
       width: 100%;
     "
   >
     <input id="value" v-model="value" type="search" syle="width: 80%;" />
-    <label for="value" styl="width: fit-content;">{{ label }}</label>
+    <label for="value">{{ label }}</label>
   </div>
 </template>
 
@@ -41,7 +39,8 @@ input {
 }
 label {
   text-transform: uppercase;
-  color: #7f828b;
+  color: #e2e2e2;
+  font-size: small;
   /*flex-grow: 1;*/
 }
 </style>

@@ -25,11 +25,25 @@
           </vs-option>
         </vs-select>
       </div>
-      <form-input style="margin-bottom: 10px;" label="Cardholder name" />
-      <form-input style="margin-bottom: 10px;" label="Card number" />
-      <form-input style="margin-bottom: 10px;" label="Expire date" />
-      <form-input style="margin-bottom: 10px;" label="CVV" />
-      <form-input style="margin-bottom: 10px;" label="ADDRESS" />
+      <table>
+        <tbody>
+          <tr>
+            <td><form-input label="Cardholder name" /></td>
+          </tr>
+          <tr>
+            <td><form-input label="Card number" /></td>
+          </tr>
+          <tr>
+            <td><form-input label="Expire date" /></td>
+          </tr>
+          <tr>
+            <td><form-input label="CVV" /></td>
+          </tr>
+          <tr>
+            <td><form-input label="ADDRESS" /></td>
+          </tr>
+        </tbody>
+      </table>
       <div style="display: flex; margin-bottom: 10px; padding: 0;">
         <button class="action-button" @click="active = 0">
           PROCEED PAYMENT
@@ -134,5 +148,17 @@ export default {
   max-width: 100%;
   border-radius: unset;
   background-color: #00cfe4;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+td {
+  height: 30px;
+  border: 1px solid grey;
+  padding: 0 5px;
 }
 </style>
