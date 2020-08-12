@@ -1,7 +1,7 @@
 <template>
   <div style="display: flex; flex-direction: column;">
     <div class="center con-selects">
-      <div style="display: flex; margin-bottom: 10px;">
+      <div style="display: flex; margin-bottom: 20px;">
         <vs-select
           v-model="creditCard"
           color="danger"
@@ -142,7 +142,7 @@ export default {
 .action-button {
   width: 100%;
   color: white;
-  height: 30px;
+  height: 50px;
   border: unset;
   padding: 5px;
   max-width: 100%;
@@ -153,11 +153,11 @@ export default {
 table {
   border-collapse: collapse;
   width: 100%;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
 td {
-  height: 30px;
+  height: 50px;
   border: 1px solid grey;
   padding: 0 5px;
 }

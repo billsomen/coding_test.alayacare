@@ -12,7 +12,7 @@
         </template>
       </header-button>
     </div>
-    <nuxt style="width: 95%; max-width: 1024px;" />
+    <nuxt style="width: 95%; max-width: 350px;" />
   </div>
 </template>
 
@@ -44,7 +44,7 @@ body {
 .page-header {
   height: 60px;
   width: 95%;
-  max-width: 1024px;
+  max-width: 350px;
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
