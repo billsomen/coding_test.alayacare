@@ -12,7 +12,6 @@
     "test": "jest"
   },
   "dependencies": {
-    "@bit/lusaxweb.vuesax.vs-tabs": "^3.8.62",
     "@nuxtjs/pwa": "^3.0.0-beta.20",
     "eslint": "^7.0.0",
     "nuxt": "^2.13.0",

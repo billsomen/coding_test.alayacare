@@ -19,13 +19,15 @@
       </div>
       <table>
         <tbody>
+          <!--<tr>
+            <td>
+              <form-input label="Cardholder name" type="number" validator="" />
+            </td>
+          </tr>-->
           <tr>
-            <td><form-input label="Cardholder name" /></td>
+            <td><form-input :type="creditCard" label="Card number" /></td>
           </tr>
-          <tr>
-            <td><form-input label="Card number" /></td>
-          </tr>
-          <tr>
+          <!--<tr>
             <td><form-input label="Expire date" /></td>
           </tr>
           <tr>
@@ -33,7 +35,7 @@
           </tr>
           <tr>
             <td><form-input label="ADDRESS" /></td>
-          </tr>
+          </tr>-->
         </tbody>
       </table>
       <div style="display: flex; margin-bottom: 10px; padding: 0;">
@@ -46,12 +48,9 @@
 </template>
 
 <script>
-import Vue from 'vue'
-import vsTabs from '@bit/lusaxweb.vuesax.vs-tabs'
 import { CatCarousel } from 'vue-cat-carousel'
 import CreditCardForm from './CreditCardForm'
 import FormInput from './FormInput'
-Vue.use(vsTabs)
 
 export default {
   name: 'CheckOut',
@@ -153,5 +152,14 @@ td {
   height: 50px;
   border: 1px solid #e2e2e2;
   padding: 0 5px;
+}
+
+td:hover {
+  background-color: rgba(255, 73, 104, 0.29);
+  padding: 10px 0;
+  /*border-radius: 10px;*/
+}
+td:hover div label {
+  color: #ff4767;
 }
 </style>

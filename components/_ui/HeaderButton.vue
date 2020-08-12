@@ -7,19 +7,6 @@
       </span>
     </div>
   </vs-button>
-  <!--<vs-button
-    class="header-button"
-    shadow
-    :active="active === 0"
-    @click="active = 0"
-  >
-    <div class="header-button-content">
-      <slot name="image"></slot>
-      <span v-if="text" class="text-view">
-        {{ text }}
-      </span>
-    </div>
-  </vs-button>-->
 </template>
 
 <script lang="ts">

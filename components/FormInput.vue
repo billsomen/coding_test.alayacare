@@ -1,18 +1,37 @@
 <template>
   <div
+    class="input-wrapper"
     style="
       display: flex;
       align-items: center;
       justify-content: space-between;
       width: 100%;
     "
+    @click.prevent="onClick"
   >
-    <input id="value" v-model="value" required />
-    <label for="value">{{ label }}</label>
+    <input
+      :id="inputId"
+      ref="inputElement"
+      v-model="value"
+      :type="type"
+      required
+      @input="format"
+    />
+    <!--    {{ validate(type, value) }}-->
+    <label :for="inputId">
+      <span v-if="isValid" class="valid">{{ label }}</span>
+      <span v-else class="not-valid">{{ label }}/ {{ cc_format(value) }}</span>
+    </label>
   </div>
 </template>
 
 <script>
+const flags = {
+  visa: /^(?:4[0-9]{12}(?:[0-9]{3})?)$/,
+  americanExpress: /^(?:4[0-9]{12}(?:[0-9]{3})?)$/,
+  masterCard: /^(?:5[1-5][0-9]{14})$/,
+}
+
 export default {
   name: 'FormInput',
   props: {
@@ -20,28 +39,109 @@ export default {
       type: String,
       required: true,
     },
+    type: {
+      type: String,
+      required: true,
+    },
   },
   data() {
     return {
       value: '',
+      inputId: new Date().getTime(),
     }
+  },
+  computed: {
+    isValid() {
+      return this.checkCard(this.type, this.value)
+    },
+  },
+  methods: {
+    cc_format(text) {
+      const v = text.replace(/\s+/g, '').replace(/[^0-9]/gi, '')
+      const matches = v.match(/\d{4,16}/g)
+      const match = (matches && matches[0]) || ''
+      const parts = []
+      for (let i = 0; i < match.length; i += 4) {
+        parts.push(match.substring(i, i + 4))
+      }
+      if (parts.length) {
+        return parts.join(' ')
+      } else {
+        return text
+      }
+    },
+    onClick() {
+      // console.dir(this.$refs.inputElement)
+      this.$refs.inputElement.focus()
+      // this.$nextTick(() => {
+      //   this.$refs.inputElement.focus()
+      // })
+    },
+    format() {
+      this.value = this.cc_format(this.value)
+    },
+    checkCard(code = 'visa', text) {
+      const fText = text.replace(' ', '')
+      const flag = flags[code]
+      return fText.match(flag)
+    },
+    // validateVisa(input) {
+    //   const flag = /^(?:4[0-9]{12}(?:[0-9]{3})?)$/
+    //   if (input.value.match(flag)) {
+    //     return true
+    //   } else {
+    //     console.dir('Not a valid Visa credit card number!')
+    //     return false
+    //   }
+    // },
+    // validateAmericanExpress(input) {
+    //   const flag = /^(?:4[0-9]{12}(?:[0-9]{3})?)$/
+    //   if (input.value.match(flag)) {
+    //     return true
+    //   } else {
+    //     console.dir('Not a valid Amercican Express credit card number!')
+    //     return false
+    //   }
+    // },
+    // validateMasterCard(input) {
+    //   const flag = /^(?:5[1-5][0-9]{14})$/
+    //   if (input.value.match(flag)) {
+    //     return true
+    //   } else {
+    //     console.dir('Not a valid Mastercard number!')
+    //     return false
+    //   }
+    // },
   },
 }
 </script>
 
 <style scoped>
+.valid {
+  color: green;
+  font-weight: bold;
+}
+.not-valid {
+  color: #ff4767;
+  font-weight: bold;
+}
 input {
   /*width: 80%;*/
   flex-grow: 4;
+  background-color: transparent;
   height: 30px;
   padding: 0 5px;
   border: none;
   font-weight: bold;
 }
-label {
+label span {
   text-transform: uppercase;
   color: #e2e2e2;
-  font-size: 12px;
+  font-size: 10px;
   /*flex-grow: 1;*/
+}
+
+label:hover {
+  /*color: #ff4767;*/
 }
 </style>
