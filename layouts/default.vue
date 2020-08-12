@@ -1,12 +1,12 @@
 <template>
   <div class="main-template">
     <div class="page-header">
-      <header-button text="Home">
+      <header-button text_="Home">
         <template v-slot:image>
           <Logo />
         </template>
       </header-button>
-      <header-button text="Alexia">
+      <header-button text_="Alexia">
         <template v-slot:image>
           <avatar />
         </template>
@@ -44,7 +44,7 @@ body {
 .page-header {
   height: 60px;
   width: 95%;
-  max-width: 350px;
+  max-width: 400px;
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;

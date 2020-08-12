@@ -54,5 +54,6 @@ export default Vue.extend({
 }
 .text-view {
   margin-left: 5px;
+  color: #7f828b;
 }
 </style>

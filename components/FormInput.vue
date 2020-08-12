@@ -7,7 +7,7 @@
       width: 100%;
     "
   >
-    <input id="value" v-model="value" type="search" syle="width: 80%;" />
+    <input id="value" v-model="value" required />
     <label for="value">{{ label }}</label>
   </div>
 </template>
@@ -36,11 +36,12 @@ input {
   height: 30px;
   padding: 0 5px;
   border: none;
+  font-weight: bold;
 }
 label {
   text-transform: uppercase;
   color: #e2e2e2;
-  font-size: small;
+  font-size: 12px;
   /*flex-grow: 1;*/
 }
 </style>

@@ -1,26 +1,18 @@
 <template>
   <div style="display: flex; flex-direction: column;">
-    <div class="center con-selects">
+    <form class="center con-selects" action="#" method="post">
       <div style="display: flex; margin-bottom: 20px;">
         <vs-select
           v-model="creditCard"
           color="danger"
           placeholder="Credit Card"
         >
-          <!-- TODO: LATER          https://stackoverflow.com/questions/2965971/how-to-add-images-in-select-list-->
-          <!-- TODO: Logo          https://toppng.com/uploads/preview/unionpay-requires-a-valid-chinese-id-visa-logo-vector-black-and-white-11562993135qcvnxx6eoc.png-->
           <vs-option
             v-for="card in creditCardList"
             :key="card.code"
             :label="card.label"
             :value="card.code"
           >
-            <img
-              v-if="0"
-              src="https://seeklogo.net/wp-content/uploads/2013/06/visa-black-vector-logo-400x400.png"
-              alt=""
-              height="30"
-            />
             {{ card.label }}
           </vs-option>
         </vs-select>
@@ -45,11 +37,11 @@
         </tbody>
       </table>
       <div style="display: flex; margin-bottom: 10px; padding: 0;">
-        <button class="action-button" @click="active = 0">
+        <button class="action-button" type="submit" @click="active = 0">
           PROCEED PAYMENT
         </button>
       </div>
-    </div>
+    </form>
   </div>
 </template>
 
@@ -131,7 +123,7 @@ export default {
 @import url('https://cdn.jsdelivr.net/npm/vuesax/dist/vuesax.css');
 .vs-select__input {
   max-width: 100%;
-  border: 1px solid grey;
+  border: 1px solid #e2e2e2;
   background-color: unset;
   border-radius: unset;
 }
@@ -147,6 +139,7 @@ export default {
   padding: 5px;
   max-width: 100%;
   border-radius: unset;
+  font-size: 12px;
   background-color: #00cfe4;
 }
 
@@ -158,7 +151,7 @@ table {
 
 td {
   height: 50px;
-  border: 1px solid grey;
+  border: 1px solid #e2e2e2;
   padding: 0 5px;
 }
 </style>
