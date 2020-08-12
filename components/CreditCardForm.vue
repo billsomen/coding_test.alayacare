@@ -1,7 +1,7 @@
 <template>
   <div class="card-form">
     <div class="card-list">
-      <VuePaycard :value-fields="valueFields" />
+      <VuePaycard v-if="0" :value-fields="valueFields" />
       <div class="card-form__inner">
         <div class="card-input">
           <label for="cardNumber" class="card-input__label">Card Number</label>
@@ -12,23 +12,23 @@
             class="card-input__input"
             :value="valueFields.cardNumber"
             data-card-field
-            @input="changeNumber"
             autocomplete="off"
             :maxlength="cardNumberMaxLength"
+            @input="changeNumber"
           />
         </div>
         <div class="card-input">
           <label for="cardName" class="card-input__label">Card Holder</label>
           <input
             :id="inputFields.cardName"
-            type="text"
             v-letter-only
+            type="text"
             title="Name"
             class="card-input__input"
             :value="valueFields.cardName"
             data-card-field
-            @input="changeName"
             autocomplete="off"
+            @input="changeName"
           />
         </div>
         <div class="card-form__row">
@@ -42,34 +42,34 @@
               >
               <select
                 :id="inputFields.cardMonth"
+                v-model="valueFields.cardMonth"
                 class="card-input__input -select"
                 aria-label="Card Month"
-                v-model="valueFields.cardMonth"
                 title="Month"
                 data-card-field
               >
                 <option value disabled selected>Month</option>
                 <option
-                  :value="n < 10 ? '0' + n : n"
                   v-for="n in 12"
-                  :disabled="n < minCardMonth"
                   :key="n"
+                  :value="n < 10 ? '0' + n : n"
+                  :disabled="n < minCardMonth"
                   >{{ generateMonthValue(n) }}</option
                 >
               </select>
               <select
                 :id="inputFields.cardYear"
+                v-model="valueFields.cardYear"
                 class="card-input__input -select"
                 aria-label="Card year"
-                v-model="valueFields.cardYear"
                 title="Year"
                 data-card-field
               >
                 <option value disabled selected>Year</option>
                 <option
-                  :value="$index + minCardYear"
                   v-for="(n, $index) in 12"
                   :key="n"
+                  :value="$index + minCardYear"
                   >{{ $index + minCardYear }}</option
                 >
               </select>
@@ -84,16 +84,16 @@
                 >CVV</label
               >
               <input
+                :id="inputFields.cardCvv"
+                v-number-only
                 type="tel"
                 title="CVV"
-                v-number-only
                 class="card-input__input"
-                :id="inputFields.cardCvv"
                 maxlength="4"
                 :value="valueFields.cardCvv"
                 data-card-field
-                @input="changeCvv"
                 autocomplete="off"
+                @input="changeCvv"
               />
             </div>
           </div>
