@@ -1,5 +1,7 @@
 {
+  "include": ["**/*.ts", "**/*.vue"],
   "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
     "target": "es2018",
     "module": "esnext",
     "moduleResolution": "node",

@@ -2,14 +2,13 @@
   <div class="main-template">
     <div class="page-header">
       <header-button text="Home">
-        <template v-slot:image><Logo /></template>
-      </header-button>
-      <header-button text="Jessica">
         <template v-slot:image>
-          <el-avatar
-            src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
-          >
-          </el-avatar>
+          <Logo />
+        </template>
+      </header-button>
+      <header-button text="Alexia">
+        <template v-slot:image>
+          <avatar />
         </template>
       </header-button>
     </div>
@@ -19,10 +18,11 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import Avatar from '~/components/Avatar.vue'
 import Logo from '~/components/Logo.vue'
 import HeaderButton from '~/components/_ui/HeaderButton.vue'
 export default Vue.extend({
-  components: { Logo, HeaderButton },
+  components: { Logo, Avatar, HeaderButton },
 })
 </script>
 
