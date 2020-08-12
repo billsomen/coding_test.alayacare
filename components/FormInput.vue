@@ -10,13 +10,19 @@
     "
   >
     <input id="value" v-model="value" type="search" syle="width: 80%;" />
-    <label for="value" styl="width: fit-content;">Cardholder name</label>
+    <label for="value" styl="width: fit-content;">{{ label }}</label>
   </div>
 </template>
 
 <script>
 export default {
   name: 'FormInput',
+  props: {
+    label: {
+      type: String,
+      required: true,
+    },
+  },
   data() {
     return {
       value: '',

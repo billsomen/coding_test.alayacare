@@ -25,7 +25,11 @@
           </vs-option>
         </vs-select>
       </div>
-      <form-input style="margin-bottom: 10px;" />
+      <form-input style="margin-bottom: 10px;" label="Cardholder name" />
+      <form-input style="margin-bottom: 10px;" label="Card number" />
+      <form-input style="margin-bottom: 10px;" label="Expire date" />
+      <form-input style="margin-bottom: 10px;" label="CVV" />
+      <form-input style="margin-bottom: 10px;" label="ADDRESS" />
       <div style="display: flex; margin-bottom: 10px; padding: 0;">
         <button class="action-button" @click="active = 0">
           PROCEED PAYMENT
