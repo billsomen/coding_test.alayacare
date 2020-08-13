@@ -1,5 +1,25 @@
 <template>
   <div style="display: flex; flex-direction: column;">
+    <span>PAYMENT</span>
+    <div id="status-buttons" class="text-center">
+      <a href="#/form/regalo" class="active"><span>1</span> Step 1</a>
+      <a href="#/form/tusdatos"><span>2</span> Step 2</a>
+    </div>
+    <div class="elements">
+      <div
+        v-for="i in 2"
+        :key="i"
+        style="
+          margin: 20px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        "
+      >
+        <span class="dot"></span>
+        PRODUCTS
+      </div>
+    </div>
     <form class="center con-selects" action="#" method="post">
       <div style="display: flex; margin-bottom: 20px;">
         <vs-select
@@ -203,5 +223,68 @@ td:hover {
 }
 td:hover div label {
   color: #ff4767;
+}
+.elements {
+  display: flex;
+}
+.elements:after {
+  height: 1px;
+  content: '';
+  background: #c00;
+  width: 100%;
+  display: block;
+}
+
+.dot {
+  height: 10px;
+  width: 10px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+#status-buttons {
+  position: relative; /* 1 */
+  display: inline-block; /* 2 */
+}
+#status-buttons::after {
+  /* 3 */
+  content: '';
+  position: absolute;
+  width: 50%;
+  z-index: -1; /* 4 */
+  top: 35%;
+  left: 25%;
+  border: 3px solid #accf5b;
+}
+#status-buttons a {
+  color: black;
+  display: inline-block;
+  font-size: 17px;
+  font-weight: normal;
+  margin-right: 0;
+  text-align: center;
+  text-transform: uppercase;
+  min-width: 150px;
+  text-decoration: none;
+}
+#status-buttons a:hover {
+  text-decoration: none;
+}
+#status-buttons a.active span {
+  color: white;
+  background: #accf5b;
+  box-shadow: rgba(0, 0, 0, 0.792157) 3px 3px 3px 0;
+}
+#status-buttons span {
+  color: white;
+  background: #22bacb;
+  display: block;
+  height: 45px;
+  margin: 0 auto 10px;
+  padding-top: 20px;
+  width: 60px;
+  border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0.792157) 3px 3px 3px 0;
 }
 </style>
