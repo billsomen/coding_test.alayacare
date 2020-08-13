@@ -54,12 +54,18 @@ export default {
   computed: {
     isValid() {
       const fText = this.value.replace(' ', '')
-      const { creditCard, cardType, date } = this.$props.options
+      const { creditCard, date } = this.$props.options
       if (creditCard) {
+        const { cardType } = this.$props.options
         return this.checkCard(cardType, fText)
       }
       if (date) {
-        console.dir(this.value)
+        const { dateMin, dateMax } = this.$props.options
+        const flagLen = fText.length === 4
+        const flagMin = dateMin.split('-').reverse().join('') <= fText
+        const flagMax = dateMax.split('-').reverse().join('') >= fText
+
+        return flagLen && flagMin && flagMax
       }
       return false
     },
