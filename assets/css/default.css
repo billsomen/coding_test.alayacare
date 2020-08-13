@@ -1,0 +1,33 @@
+/* Forms */
+
+.text-error {
+  color: #ff4767
+}
+
+.button-error {
+  color: #ff4767
+}
+
+.valid {
+  color: green;
+}
+
+label span {
+  text-transform: uppercase;
+  color: #e2e2e2;
+  font-size: 10px;
+  /*flex-grow: 1;*/
+}
+label:hover {
+  color: #a9a9a9;
+}
+
+input {
+  /*width: 80%;*/
+  flex-grow: 4;
+  background-color: transparent;
+  height: 30px;
+  padding: 0 5px;
+  border: none;
+  /*font-weight: bold;*/
+}

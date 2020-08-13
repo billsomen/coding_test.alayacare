@@ -20,7 +20,7 @@ export default {
       },
     ],
   },
-  css: ['vuesax/dist/vuesax.css'],
+  css: ['vuesax/dist/vuesax.css', '@/assets/css/default.css'],
   plugins: [
     '@/plugins/vuesax',
     { src: '@/plugins/vue-cleave.js', mode: 'client' },

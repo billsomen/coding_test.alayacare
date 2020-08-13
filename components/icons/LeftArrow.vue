@@ -42,7 +42,7 @@
 
 <script>
 export default {
-  name: 'LeftArrow',
+  name: 'IconLeftArrow',
   props: {
     size: {
       type: Number,

@@ -1,8 +1,7 @@
 <template>
   <div style="display: flex; flex-direction: column; margin-top: 20px;">
-    <!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
     <div style="display: flex; justify-content: space-between; width: 60%;">
-      <left-arrow :size="15" />
+      <icon-left-arrow :size="15" />
       <span>PAYMENT</span>
     </div>
     <form-wizard step-size="xs" :start-index="2" color="#6757FE">
@@ -34,7 +33,7 @@
             <td>
               <form-input
                 label="Cardholder name"
-                :options="{ address: true }"
+                :options="{ key: 'text', address: true }"
               />
             </td>
           </tr>
@@ -42,6 +41,7 @@
             <td>
               <form-input
                 :options="{
+                  key: 'card',
                   cleave: true,
                   creditCard: true,
                   cardType: creditCard,
@@ -49,6 +49,7 @@
                 }"
                 :type="creditCard"
                 label="Card number"
+                @onEdit="onEditInput($event)"
               />
             </td>
           </tr>
@@ -56,6 +57,7 @@
             <td>
               <form-input
                 :options="{
+                  key: 'date',
                   cleave: true,
                   date: true,
                   datePattern: ['m', 'y'],
@@ -71,6 +73,7 @@
             <td>
               <form-input
                 :options="{
+                  key: 'text',
                   blocks: [3],
                   cleave: true,
                   cvv: true,
@@ -82,13 +85,16 @@
           </tr>
           <tr>
             <td>
-              <form-input :options="{ address: true }" label="ADDRESS" />
+              <form-input
+                :options="{ key: 'text', address: true }"
+                label="ADDRESS"
+              />
             </td>
           </tr>
         </tbody>
       </table>
       <div style="display: flex; margin-bottom: 10px; padding: 0;">
-        <button class="action-button" type="submit" @click="active = 0">
+        <button class="action-button" type="submit">
           PROCEED PAYMENT
         </button>
       </div>
@@ -98,18 +104,14 @@
 
 <script>
 import FormInput from './FormInput'
-import LeftArrow from './icons/LeftArrow'
+import IconLeftArrow from './icons/LeftArrow'
 
 export default {
   name: 'CheckOut',
-  components: { LeftArrow, FormInput },
+  components: { IconLeftArrow, FormInput },
   data() {
     return {
       cardNumber: null,
-      options: {
-        creditCard: true,
-        delimiter: '-',
-      },
       active: 1,
       creditCard: 'visa',
       value: '',
@@ -130,41 +132,9 @@ export default {
       ],
     }
   },
-  computed: {
-    getProgress() {
-      let progress = 0
-
-      // at least one number
-
-      if (/\d/.test(this.value)) {
-        progress += 20
-      }
-
-      // at least one capital letter
-
-      if (/(.*[A-Z].*)/.test(this.value)) {
-        progress += 20
-      }
-
-      // at menons a lowercase
-
-      if (/(.*[a-z].*)/.test(this.value)) {
-        progress += 20
-      }
-
-      // more than 5 digits
-
-      if (this.value.length >= 6) {
-        progress += 20
-      }
-
-      // at least one special character
-
-      if (/[^A-Za-z0-9]/.test(this.value)) {
-        progress += 20
-      }
-
-      return progress
+  methods: {
+    onEditInput(data) {
+      console.dir(data)
     },
   },
 }
@@ -215,86 +185,6 @@ td:hover {
 }
 td:hover div label {
   color: #ff4767;
-}
-.elements {
-  display: flex;
-  padding: 0;
-  border-top: 1px solid;
-  justify-content: space-between;
-}
-/*.elements:after {*/
-/*  height: 1px;*/
-/*  content: '';*/
-/*  background: #c00;*/
-/*  width: 100%;*/
-/*  display: block;*/
-/*}*/
-
-.dot {
-  height: 10px;
-  width: 10px;
-  background-color: #bbb;
-  border-radius: 50%;
-  display: inline-block;
-}
-.dot:after {
-  content: '';
-  position: absolute;
-  width: 10%;
-  top: 10%;
-  /*top: 2px;*/
-  /*height: 1px;*/
-  direction: ltr;
-  z-index: -1; /* 4 */
-  /*top: 35%;*/
-  /*left: 25%;*/
-  border: 1px solid grey;
-}
-
-#status-buttons {
-  position: relative; /* 1 */
-  display: inline-block; /* 2 */
-}
-#status-buttons::after {
-  /* 3 */
-  content: '';
-  position: absolute;
-  width: 50%;
-  z-index: -1; /* 4 */
-  top: 35%;
-  left: 25%;
-  border: 3px solid #accf5b;
-}
-#status-buttons a {
-  color: black;
-  display: inline-block;
-  font-size: 17px;
-  font-weight: normal;
-  margin-right: 0;
-  text-align: center;
-  text-transform: uppercase;
-  min-width: 150px;
-  text-decoration: none;
-}
-#status-buttons a:hover {
-  text-decoration: none;
-}
-#status-buttons a.active span {
-  color: white;
-  background: #accf5b;
-  box-shadow: rgba(0, 0, 0, 0.792157) 3px 3px 3px 0;
-}
-
-#status-buttons span {
-  color: white;
-  background: #22bacb;
-  display: block;
-  height: 45px;
-  margin: 0 auto 10px;
-  padding-top: 20px;
-  width: 60px;
-  border-radius: 50%;
-  box-shadow: rgba(0, 0, 0, 0.792157) 3px 3px 3px 0;
 }
 
 .wizard-header {

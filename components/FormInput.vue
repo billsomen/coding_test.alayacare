@@ -30,7 +30,7 @@
     />
     <label :for="inputId">
       <span v-if="isValid" class="valid">{{ label }}</span>
-      <span v-else class="not-valid">{{ label }}</span>
+      <span v-else class="not-valid text-error">{{ label }}</span>
     </label>
   </div>
 </template>
@@ -64,11 +64,12 @@ export default {
   computed: {
     isValid() {
       const fText = this.value.replace(' ', '')
-      const { creditCard, date, cvv, address } = this.$props.options
+      const { creditCard, date, cvv, address, key } = this.$props.options
+      let flag = false
 
       if (creditCard) {
         const { cardType } = this.$props.options
-        return this.checkCard(cardType, fText)
+        flag = this.checkCard(cardType, this.value)
       }
 
       if (date) {
@@ -77,7 +78,7 @@ export default {
         const flagMin = dateMin.split('-').reverse().join('') <= fText
         const flagMax = dateMax.split('-').reverse().join('') >= fText
 
-        return flagLen && flagMin && flagMax
+        flag = flagLen && flagMin && flagMax
       }
 
       if (cvv) {
@@ -85,13 +86,14 @@ export default {
         const flagNumeric = +this.value
         const flagLen = blocks && fText.length === blocks[0]
 
-        return flagLen && flagNumeric
+        flag = flagLen && flagNumeric
       }
 
       if (address) {
-        return fText.length > 5
+        flag = fText.length > 5
       }
-      return false
+      this.$emit('onEdit', { key, flag })
+      return flag
     },
   },
   methods: {
@@ -102,43 +104,13 @@ export default {
         this.$refs.inputElement.focus()
       }
     },
-    validate() {
+    validators() {
       // CVV, Expire Date, Card_Number, Carholder name : length
     },
     checkCard(code = 'visa', text) {
       const flag = flags[code]
-      return text.match(flag)
+      return flag.test(text)
     },
   },
 }
 </script>
-
-<style scoped>
-.valid {
-  color: green;
-  font-weight: bold;
-}
-.not-valid {
-  color: #ff4767;
-  font-weight: bold;
-}
-input {
-  /*width: 80%;*/
-  flex-grow: 4;
-  background-color: transparent;
-  height: 30px;
-  padding: 0 5px;
-  border: none;
-  /*font-weight: bold;*/
-}
-label span {
-  text-transform: uppercase;
-  color: #e2e2e2;
-  font-size: 10px;
-  /*flex-grow: 1;*/
-}
-
-label:hover {
-  /*color: #ff4767;*/
-}
-</style>
