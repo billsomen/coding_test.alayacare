@@ -1,25 +1,16 @@
 <template>
-  <div style="display: flex; flex-direction: column;">
-    <span>PAYMENT</span>
-    <div id="status-buttons" class="text-center">
-      <a href="#/form/regalo" class="active"><span>1</span> Step 1</a>
-      <a href="#/form/tusdatos"><span>2</span> Step 2</a>
+  <div style="display: flex; flex-direction: column; margin-top: 20px;">
+    <!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+    <div style="display: flex; justify-content: space-between; width: 60%;">
+      <left-arrow :size="15" />
+      <span>PAYMENT</span>
     </div>
-    <div class="elements">
-      <div
-        v-for="i in 2"
-        :key="i"
-        style="
-          margin: 20px;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-        "
-      >
-        <span class="dot"></span>
-        PRODUCTS
-      </div>
-    </div>
+    <form-wizard step-size="xs" :start-index="2" color="#6757FE">
+      <tab-content title="PRODUCTS" icon="''"></tab-content>
+      <tab-content title="SHIPPING" icon="''"> </tab-content>
+      <tab-content title="CHECKOUT" icon="''"> </tab-content>
+      <tab-content title="COMPLETED" icon="''"> </tab-content>
+    </form-wizard>
     <form class="center con-selects" action="#" method="post">
       <div style="display: flex; margin-bottom: 20px;">
         <vs-select
@@ -107,10 +98,11 @@
 
 <script>
 import FormInput from './FormInput'
+import LeftArrow from './icons/LeftArrow'
 
 export default {
   name: 'CheckOut',
-  components: { FormInput },
+  components: { LeftArrow, FormInput },
   data() {
     return {
       cardNumber: null,
@@ -226,14 +218,17 @@ td:hover div label {
 }
 .elements {
   display: flex;
+  padding: 0;
+  border-top: 1px solid;
+  justify-content: space-between;
 }
-.elements:after {
-  height: 1px;
-  content: '';
-  background: #c00;
-  width: 100%;
-  display: block;
-}
+/*.elements:after {*/
+/*  height: 1px;*/
+/*  content: '';*/
+/*  background: #c00;*/
+/*  width: 100%;*/
+/*  display: block;*/
+/*}*/
 
 .dot {
   height: 10px;
@@ -241,6 +236,19 @@ td:hover div label {
   background-color: #bbb;
   border-radius: 50%;
   display: inline-block;
+}
+.dot:after {
+  content: '';
+  position: absolute;
+  width: 10%;
+  top: 10%;
+  /*top: 2px;*/
+  /*height: 1px;*/
+  direction: ltr;
+  z-index: -1; /* 4 */
+  /*top: 35%;*/
+  /*left: 25%;*/
+  border: 1px solid grey;
 }
 
 #status-buttons {
@@ -276,6 +284,7 @@ td:hover div label {
   background: #accf5b;
   box-shadow: rgba(0, 0, 0, 0.792157) 3px 3px 3px 0;
 }
+
 #status-buttons span {
   color: white;
   background: #22bacb;
@@ -286,5 +295,28 @@ td:hover div label {
   width: 60px;
   border-radius: 50%;
   box-shadow: rgba(0, 0, 0, 0.792157) 3px 3px 3px 0;
+}
+
+.wizard-header {
+  display: none;
+}
+.wizard-navigation {
+  height: 100px;
+}
+.vue-form-wizard.xs .wizard-icon-circle {
+  border: unset;
+  background-color: #6757fe;
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  top: 15px;
+}
+.stepTitle {
+  margin-top: 50px;
+  font-size: 12px;
+}
+
+.wizard-card-footer {
+  display: none;
 }
 </style>

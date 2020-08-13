@@ -24,6 +24,7 @@ export default {
   plugins: [
     '@/plugins/vuesax',
     { src: '@/plugins/vue-cleave.js', mode: 'client' },
+    { src: '@/plugins/vue-form-wizard.js', mode: 'client' },
   ],
   buildModules: ['@nuxt/typescript-build'],
   modules: ['@nuxtjs/pwa'],
