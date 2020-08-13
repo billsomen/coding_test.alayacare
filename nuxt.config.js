@@ -1,13 +1,5 @@
 export default {
-  /*
-   ** Nuxt rendering mode
-   ** See https://nuxtjs.org/api/configuration-mode
-   */
   mode: 'spa',
-  /*
-   ** Headers of the page
-   ** See https://nuxtjs.org/api/configuration-head
-   */
   head: {
     title: 'Alayacare - Checkout' || process.env.npm_package_name,
     meta: [
@@ -21,30 +13,12 @@ export default {
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
-  /*
-   ** Global CSS
-   */
   css: ['vuesax/dist/vuesax.css'],
-  /*
-   ** Plugins to load before mounting the App
-   ** https://nuxtjs.org/guide/plugins
-   */
   plugins: [
     '@/plugins/vuesax',
-    { src: '@/plugins/vue-paycard.js', mode: 'client' },
-    { src: '@/plugins/vue-cat-carousel.js', mode: 'client' },
+    { src: '@/plugins/vue-cleave.js', mode: 'client' },
   ],
-  /*
-   ** Nuxt.js dev-modules
-   */
   buildModules: ['@nuxt/typescript-build'],
-  /*
-   ** Nuxt.js modules
-   */
   modules: ['@nuxtjs/pwa'],
-  /*
-   ** Build configuration
-   ** See https://nuxtjs.org/api/configuration-build/
-   */
   build: {},
 }

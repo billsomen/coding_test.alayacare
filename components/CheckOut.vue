@@ -17,25 +17,62 @@
           </vs-option>
         </vs-select>
       </div>
+      {{ cardNumber }}
+      <cleave
+        v-if="0"
+        v-model="cardNumber"
+        :options="options"
+        class="form-control"
+        name="card"
+      ></cleave>
       <table>
         <tbody>
-          <!--<tr>
+          <tr>
             <td>
-              <form-input label="Cardholder name" type="number" validator="" />
+              <form-input
+                label="Cardholder name"
+                :options="{ uppercase: true, blocks: [100] }"
+              />
             </td>
-          </tr>-->
-          <tr>
-            <td><form-input :type="creditCard" label="Card number" /></td>
-          </tr>
-          <!--<tr>
-            <td><form-input label="Expire date" /></td>
           </tr>
           <tr>
-            <td><form-input label="CVV" /></td>
+            <td>
+              <form-input
+                :options="{
+                  creditCard: true,
+                  delimiter: ' - ',
+                }"
+                label="Card number"
+              />
+            </td>
           </tr>
           <tr>
-            <td><form-input label="ADDRESS" /></td>
-          </tr>-->
+            <td>
+              <form-input
+                :options="{
+                  date: true,
+                  datePattern: ['m', 'y'],
+                  delimiter: ' / ',
+                  dateMin: '01-20',
+                  dateMax: '31-30',
+                }"
+                label="Expire date"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <form-input
+                :options="{ blocks: [3], numericOnly: true }"
+                label="CVV"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <form-input :options="{ blocks: [100] }" label="ADDRESS" />
+            </td>
+          </tr>
         </tbody>
       </table>
       <div style="display: flex; margin-bottom: 10px; padding: 0;">
@@ -57,6 +94,11 @@ export default {
   components: { FormInput, CreditCardForm, CatCarousel },
   data() {
     return {
+      cardNumber: null,
+      options: {
+        creditCard: true,
+        delimiter: '-',
+      },
       active: 1,
       creditCard: 'visa',
       value: '',
@@ -155,7 +197,8 @@ td {
 }
 
 td:hover {
-  background-color: rgba(255, 73, 104, 0.29);
+  background-color: white;
+  /*background-color: rgba(255, 73, 104, 0.29);*/
   padding: 10px 0;
   /*border-radius: 10px;*/
 }

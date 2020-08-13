@@ -9,18 +9,17 @@
     "
     @click.prevent="onClick"
   >
-    <input
+    <cleave
       :id="inputId"
       ref="inputElement"
       v-model="value"
-      :type="type"
+      :options="options"
       required
-      @input="format"
-    />
-    <!--    {{ validate(type, value) }}-->
+      name="card"
+    ></cleave>
     <label :for="inputId">
       <span v-if="isValid" class="valid">{{ label }}</span>
-      <span v-else class="not-valid">{{ label }}/ {{ cc_format(value) }}</span>
+      <span v-else class="not-valid">{{ label }}</span>
     </label>
   </div>
 </template>
@@ -39,20 +38,26 @@ export default {
       type: String,
       required: true,
     },
-    type: {
-      type: String,
+    options: {
+      type: Object,
       required: true,
     },
+    // type: {
+    //   type: String,
+    //   required: true,
+    // },
   },
   data() {
     return {
+      cardNumber: null,
       value: '',
       inputId: new Date().getTime(),
     }
   },
   computed: {
     isValid() {
-      return this.checkCard(this.type, this.value)
+      const fText = this.value.replace(' ', '')
+      return this.checkCard('visa', fText)
     },
   },
   methods: {
@@ -71,19 +76,21 @@ export default {
       }
     },
     onClick() {
-      // console.dir(this.$refs.inputElement)
-      this.$refs.inputElement.focus()
+      console.dir(this.$refs.inputElement.$el.focus())
+      // this.$refs.inputElement.focus()
       // this.$nextTick(() => {
       //   this.$refs.inputElement.focus()
       // })
     },
+    validate() {
+      // CVV, Expire Date, Card_Number, Carholder name : length
+    },
     format() {
-      this.value = this.cc_format(this.value)
+      // this.value = this.cc_format(this.value)
     },
     checkCard(code = 'visa', text) {
-      const fText = text.replace(' ', '')
       const flag = flags[code]
-      return fText.match(flag)
+      return text.match(flag)
     },
     // validateVisa(input) {
     //   const flag = /^(?:4[0-9]{12}(?:[0-9]{3})?)$/
