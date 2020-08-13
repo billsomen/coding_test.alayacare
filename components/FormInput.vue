@@ -10,13 +10,24 @@
     @click.prevent="onClick"
   >
     <cleave
+      v-if="options.cleave"
       :id="inputId"
       ref="inputElement"
       v-model="value"
       :options="options"
       required
-      name="Year"
+      name="card"
     ></cleave>
+    <input
+      v-else
+      :id="inputId"
+      ref="inputElement"
+      v-model="value"
+      type="text"
+      :options="options"
+      required
+      name="card"
+    />
     <label :for="inputId">
       <span v-if="isValid" class="valid">{{ label }}</span>
       <span v-else class="not-valid">{{ label }}</span>
@@ -26,7 +37,6 @@
 
 <script>
 const flags = {
-  // mastercard: /^(?:4[0-9]{12}(?:[0-9]{3})?)$/,
   visa: /^(?:4[0-9]{12}(?:[0-9]{3})?)$/,
   mastercard: /^(?:5[1-5][0-9]{2}|222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720)[0-9]{12}$/,
   amex: /^3[47][0-9]{13}$/,
@@ -54,11 +64,13 @@ export default {
   computed: {
     isValid() {
       const fText = this.value.replace(' ', '')
-      const { creditCard, date } = this.$props.options
+      const { creditCard, date, cvv, address } = this.$props.options
+
       if (creditCard) {
         const { cardType } = this.$props.options
         return this.checkCard(cardType, fText)
       }
+
       if (date) {
         const { dateMin, dateMax } = this.$props.options
         const flagLen = fText.length === 4
@@ -67,64 +79,36 @@ export default {
 
         return flagLen && flagMin && flagMax
       }
+
+      if (cvv) {
+        const { blocks } = this.$props.options
+        const flagNumeric = +this.value
+        const flagLen = blocks && fText.length === blocks[0]
+
+        return flagLen && flagNumeric
+      }
+
+      if (address) {
+        return fText.length > 5
+      }
       return false
     },
   },
   methods: {
-    cc_format(text) {
-      const v = text.replace(/\s+/g, '').replace(/[^0-9]/gi, '')
-      const matches = v.match(/\d{4,16}/g)
-      const match = (matches && matches[0]) || ''
-      const parts = []
-      for (let i = 0; i < match.length; i += 4) {
-        parts.push(match.substring(i, i + 4))
-      }
-      if (parts.length) {
-        return parts.join(' ')
-      } else {
-        return text
-      }
-    },
     onClick() {
-      this.$refs.inputElement.$el.focus()
+      if (this.$refs.inputElement.$el) {
+        this.$refs.inputElement.$el.focus()
+      } else {
+        this.$refs.inputElement.focus()
+      }
     },
     validate() {
       // CVV, Expire Date, Card_Number, Carholder name : length
-    },
-    format() {
-      // this.value = this.cc_format(this.value)
     },
     checkCard(code = 'visa', text) {
       const flag = flags[code]
       return text.match(flag)
     },
-    // validateVisa(input) {
-    //   const flag = /^(?:4[0-9]{12}(?:[0-9]{3})?)$/
-    //   if (input.value.match(flag)) {
-    //     return true
-    //   } else {
-    //     console.dir('Not a valid Visa credit card number!')
-    //     return false
-    //   }
-    // },
-    // validateAmericanExpress(input) {
-    //   const flag = /^(?:4[0-9]{12}(?:[0-9]{3})?)$/
-    //   if (input.value.match(flag)) {
-    //     return true
-    //   } else {
-    //     console.dir('Not a valid Amercican Express credit card number!')
-    //     return false
-    //   }
-    // },
-    // validateMasterCard(input) {
-    //   const flag = /^(?:5[1-5][0-9]{14})$/
-    //   if (input.value.match(flag)) {
-    //     return true
-    //   } else {
-    //     console.dir('Not a valid Mastercard number!')
-    //     return false
-    //   }
-    // },
   },
 }
 </script>

@@ -21,13 +21,17 @@
         <tbody>
           <tr>
             <td>
-              <form-input label="Cardholder name" :options="{}" />
+              <form-input
+                label="Cardholder name"
+                :options="{ address: true }"
+              />
             </td>
           </tr>
           <tr>
             <td>
               <form-input
                 :options="{
+                  cleave: true,
                   creditCard: true,
                   cardType: creditCard,
                   delimiter: ' - ',
@@ -41,6 +45,7 @@
             <td>
               <form-input
                 :options="{
+                  cleave: true,
                   date: true,
                   datePattern: ['m', 'y'],
                   delimiter: ' / ',
@@ -54,14 +59,19 @@
           <tr>
             <td>
               <form-input
-                :options="{ blocks: [3], numericOnly: true }"
+                :options="{
+                  blocks: [3],
+                  cleave: true,
+                  cvv: true,
+                  numericOnly: true,
+                }"
                 label="CVV"
               />
             </td>
           </tr>
           <tr>
             <td>
-              <form-input :options="{}" label="ADDRESS" />
+              <form-input :options="{ address: true }" label="ADDRESS" />
             </td>
           </tr>
         </tbody>
