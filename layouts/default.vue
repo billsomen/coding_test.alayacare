@@ -21,6 +21,7 @@ import Vue from 'vue'
 import Avatar from '~/components/Avatar.vue'
 import Logo from '~/components/Logo.vue'
 import HeaderButton from '~/components/_ui/HeaderButton.vue'
+
 export default Vue.extend({
   components: { Logo, Avatar, HeaderButton },
 })

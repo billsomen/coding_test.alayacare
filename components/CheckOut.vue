@@ -17,14 +17,6 @@
           </vs-option>
         </vs-select>
       </div>
-      {{ cardNumber }}
-      <cleave
-        v-if="0"
-        v-model="cardNumber"
-        :options="options"
-        class="form-control"
-        name="card"
-      ></cleave>
       <table>
         <tbody>
           <tr>
@@ -85,13 +77,11 @@
 </template>
 
 <script>
-import { CatCarousel } from 'vue-cat-carousel'
-import CreditCardForm from './CreditCardForm'
 import FormInput from './FormInput'
 
 export default {
   name: 'CheckOut',
-  components: { FormInput, CreditCardForm, CatCarousel },
+  components: { FormInput },
   data() {
     return {
       cardNumber: null,
