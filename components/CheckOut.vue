@@ -21,10 +21,7 @@
         <tbody>
           <tr>
             <td>
-              <form-input
-                label="Cardholder name"
-                :options="{ uppercase: true, blocks: [100] }"
-              />
+              <form-input label="Cardholder name" :options="{}" />
             </td>
           </tr>
           <tr>
@@ -32,8 +29,10 @@
               <form-input
                 :options="{
                   creditCard: true,
+                  cardType: creditCard,
                   delimiter: ' - ',
                 }"
+                :type="creditCard"
                 label="Card number"
               />
             </td>
@@ -45,8 +44,8 @@
                   date: true,
                   datePattern: ['m', 'y'],
                   delimiter: ' / ',
-                  dateMin: '01-20',
-                  dateMax: '31-30',
+                  dateMin: '20-01',
+                  dateMax: '31-12',
                 }"
                 label="Expire date"
               />
@@ -62,7 +61,7 @@
           </tr>
           <tr>
             <td>
-              <form-input :options="{ blocks: [100] }" label="ADDRESS" />
+              <form-input :options="{}" label="ADDRESS" />
             </td>
           </tr>
         </tbody>

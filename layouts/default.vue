@@ -42,6 +42,7 @@ body {
   justify-content: center;
   align-items: center;
 }
+
 .page-header {
   height: 60px;
   width: 95%;

@@ -15,7 +15,7 @@
       v-model="value"
       :options="options"
       required
-      name="card"
+      name="Year"
     ></cleave>
     <label :for="inputId">
       <span v-if="isValid" class="valid">{{ label }}</span>
@@ -26,9 +26,10 @@
 
 <script>
 const flags = {
+  // mastercard: /^(?:4[0-9]{12}(?:[0-9]{3})?)$/,
   visa: /^(?:4[0-9]{12}(?:[0-9]{3})?)$/,
-  americanExpress: /^(?:4[0-9]{12}(?:[0-9]{3})?)$/,
-  masterCard: /^(?:5[1-5][0-9]{14})$/,
+  mastercard: /^(?:5[1-5][0-9]{2}|222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720)[0-9]{12}$/,
+  amex: /^3[47][0-9]{13}$/,
 }
 
 export default {
@@ -42,10 +43,6 @@ export default {
       type: Object,
       required: true,
     },
-    // type: {
-    //   type: String,
-    //   required: true,
-    // },
   },
   data() {
     return {
@@ -57,7 +54,14 @@ export default {
   computed: {
     isValid() {
       const fText = this.value.replace(' ', '')
-      return this.checkCard('visa', fText)
+      const { creditCard, cardType, date } = this.$props.options
+      if (creditCard) {
+        return this.checkCard(cardType, fText)
+      }
+      if (date) {
+        console.dir(this.value)
+      }
+      return false
     },
   },
   methods: {
@@ -76,11 +80,7 @@ export default {
       }
     },
     onClick() {
-      console.dir(this.$refs.inputElement.$el.focus())
-      // this.$refs.inputElement.focus()
-      // this.$nextTick(() => {
-      //   this.$refs.inputElement.focus()
-      // })
+      this.$refs.inputElement.$el.focus()
     },
     validate() {
       // CVV, Expire Date, Card_Number, Carholder name : length
@@ -139,7 +139,7 @@ input {
   height: 30px;
   padding: 0 5px;
   border: none;
-  font-weight: bold;
+  /*font-weight: bold;*/
 }
 label span {
   text-transform: uppercase;
