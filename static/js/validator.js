@@ -45,10 +45,7 @@ Validator.prototype.isDateValid = function (value) {
 }
 
 Validator.prototype.isNotEmpty = function (value) {
-  if (value !== '' && value !== null && typeof value !== 'undefined') {
-    return true
-  }
-  return false
+  return value !== '' && value !== null && typeof value !== 'undefined'
 }
 
 Validator.prototype.isValidCard = function (value) {
