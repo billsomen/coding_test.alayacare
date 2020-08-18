@@ -1,43 +1,41 @@
 // Validator.js
 
-const CreditCardValidator = function () {
-  this.challenges = {
-    visa: /^(?:4[0-9]{12}(?:[0-9]{3})?)$/,
-    mastercard: /^(?:5[1-5][0-9]{2}|222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720)[0-9]{12}$/,
-    amex: /^3[47][0-9]{13}$/,
-  }
+const CreditCardValidator = function () {}
+
+CreditCardValidator.prototype.challenges = {
+  visa: /^(?:4[0-9]{12}(?:[0-9]{3})?)$/,
+  mastercard: /^(?:5[1-5][0-9]{2}|222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720)[0-9]{12}$/,
+  amex: /^3[47][0-9]{13}$/,
 }
 
-CreditCardValidator.prototype = {
-  check(cardNumber, code = null) {
-    if (!code) {
-      code = Object.keys(this.challenges)[0]
-    }
-    return this.challenges[code].test(cardNumber)
-  },
+CreditCardValidator.prototype.check = function (cardNumber, code = null) {
+  if (!code) {
+    return false
+  }
+  return this.challenges[code].test(cardNumber)
 }
 
 const Validator = function () {}
 
-Validator.prototype.validate = function (value, rules, type = null) {
+Validator.prototype.validate = function (value, rules) {
   const self = this
   if (this.isNotEmpty(value.input)) {
     return rules.every(function (rule) {
-      return self[rule](value, type)
+      return self[rule](value)
     })
   } else {
     return false
   }
 }
 
-Validator.prototype.isString = function (value, type = null) {
+Validator.prototype.isString = function (value) {
   if (typeof value.input === 'string') {
     return true
   }
   return false
 }
 
-Validator.prototype.isDateValid = function (value, type = null) {
+Validator.prototype.isDateValid = function (value) {
   const { input, dateMin, dateMax } = value
   const flagLen = input.length === 4
   const flagMin = dateMin.split('-').reverse().join('') <= input
@@ -46,19 +44,19 @@ Validator.prototype.isDateValid = function (value, type = null) {
   return flagLen && flagMin && flagMax
 }
 
-Validator.prototype.isNotEmpty = function (value, type = null) {
+Validator.prototype.isNotEmpty = function (value) {
   if (value !== '' && value !== null && typeof value !== 'undefined') {
     return true
   }
   return false
 }
 
-Validator.prototype.isValidCard = function (value, type = null) {
-  const { input } = value
+Validator.prototype.isValidCard = function (value) {
+  const { input, cardType: type } = value
   return CreditCardValidator.prototype.check(input, type)
 }
 
-Validator.prototype.isValidCVV = function (value, type = null) {
+Validator.prototype.isValidCVV = function (value) {
   const { input, blocks } = value
   const flagNumeric = +input
   const flagLen = blocks && input.length === blocks[0]
@@ -66,12 +64,8 @@ Validator.prototype.isValidCVV = function (value, type = null) {
   return flagLen && flagNumeric
 }
 
-Validator.prototype.isAddress = function (value, type = null) {
+Validator.prototype.isAddress = function (value) {
   return this.isString(value) && value.input.length > 5
-}
-
-Validator.prototype.isInt = function (value) {
-  return Number.isInteger(value)
 }
 
 export default Validator
