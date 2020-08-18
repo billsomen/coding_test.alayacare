@@ -33,6 +33,15 @@ Validator.prototype.isString = function (value, type = null) {
   return false
 }
 
+Validator.prototype.isDateValid = function (value, type = null) {
+  const { input, dateMin, dateMax } = value
+  const flagLen = input.length === 4
+  const flagMin = dateMin.split('-').reverse().join('') <= input
+  const flagMax = dateMax.split('-').reverse().join('') >= input
+
+  return flagLen && flagMin && flagMax
+}
+
 Validator.prototype.isNotEmpty = function (value, type = null) {
   if (value !== '' && value !== null && typeof value !== 'undefined') {
     return true
@@ -41,7 +50,8 @@ Validator.prototype.isNotEmpty = function (value, type = null) {
 }
 
 Validator.prototype.isValidCard = function (value, type = null) {
-  CreditCardValidator.prototype.check(value, type)
+  const { input } = value
+  return CreditCardValidator.prototype.check(input, type)
 }
 
 Validator.prototype.isInt = function (value) {
