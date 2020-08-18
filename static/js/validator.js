@@ -21,13 +21,17 @@ const Validator = function () {}
 
 Validator.prototype.validate = function (value, rules, type = null) {
   const self = this
-  return rules.every(function (rule) {
-    return self[rule](value, type)
-  })
+  if (this.isNotEmpty(value.input)) {
+    return rules.every(function (rule) {
+      return self[rule](value, type)
+    })
+  } else {
+    return false
+  }
 }
 
 Validator.prototype.isString = function (value, type = null) {
-  if (typeof value === 'string') {
+  if (typeof value.input === 'string') {
     return true
   }
   return false
@@ -54,6 +58,20 @@ Validator.prototype.isValidCard = function (value, type = null) {
   return CreditCardValidator.prototype.check(input, type)
 }
 
+Validator.prototype.isValidCVV = function (value, type = null) {
+  const { input, blocks } = value
+  const flagNumeric = +input
+  const flagLen = blocks && input.length === blocks[0]
+
+  return flagLen && flagNumeric
+}
+
+Validator.prototype.isAddress = function (value, type = null) {
+  return this.isString(value) && value.input.length > 5
+}
+
 Validator.prototype.isInt = function (value) {
   return Number.isInteger(value)
 }
+
+export default Validator

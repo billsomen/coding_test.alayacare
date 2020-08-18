@@ -36,11 +36,8 @@
 </template>
 
 <script>
-const flags = {
-  visa: /^(?:4[0-9]{12}(?:[0-9]{3})?)$/,
-  mastercard: /^(?:5[1-5][0-9]{2}|222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720)[0-9]{12}$/,
-  amex: /^3[47][0-9]{13}$/,
-}
+import ValidatorObject from '~/static/js/validator'
+const Validator = new ValidatorObject()
 
 export default {
   name: 'FormInput',
@@ -63,35 +60,9 @@ export default {
   },
   computed: {
     isValid() {
-      const fText = this.value.replace(' ', '')
-      const { creditCard, date, cvv, address, key } = this.$props.options
-      let flag = false
-
-      if (creditCard) {
-        const { cardType } = this.$props.options
-        flag = this.checkCard(cardType, this.value)
-      }
-
-      if (date) {
-        const { dateMin, dateMax } = this.$props.options
-        const flagLen = fText.length === 4
-        const flagMin = dateMin.split('-').reverse().join('') <= fText
-        const flagMax = dateMax.split('-').reverse().join('') >= fText
-
-        flag = flagLen && flagMin && flagMax
-      }
-
-      if (cvv) {
-        const { blocks } = this.$props.options
-        const flagNumeric = +this.value
-        const flagLen = blocks && fText.length === blocks[0]
-
-        flag = flagLen && flagNumeric
-      }
-
-      if (address) {
-        flag = fText.length > 5
-      }
+      const input = this.value.replace(' ', '')
+      const { key, roles } = this.$props.options
+      const flag = Validator.validate({ input, ...this.$props.options }, roles)
       this.$emit('onEdit', { key, flag })
       return flag
     },
@@ -103,13 +74,6 @@ export default {
       } else {
         this.$refs.inputElement.focus()
       }
-    },
-    validators() {
-      // CVV, Expire Date, Card_Number, Carholder name : length
-    },
-    checkCard(code = 'visa', text) {
-      const flag = flags[code]
-      return flag.test(text)
     },
   },
 }

@@ -33,7 +33,7 @@
             <td>
               <form-input
                 label="Cardholder name"
-                :options="{ key: 'text', address: true }"
+                :options="{ key: 'text', address: true, roles: ['isAddress'] }"
               />
             </td>
           </tr>
@@ -46,6 +46,7 @@
                   creditCard: true,
                   cardType: creditCard,
                   delimiter: ' - ',
+                  roles: ['isValidCard'],
                 }"
                 :type="creditCard"
                 label="Card number"
@@ -64,6 +65,7 @@
                   delimiter: ' / ',
                   dateMin: '20-01',
                   dateMax: '31-12',
+                  roles: ['isDateValid'],
                 }"
                 label="Expire date"
               />
@@ -77,6 +79,7 @@
                   blocks: [3],
                   cleave: true,
                   cvv: true,
+                  roles: ['isValidCVV'],
                   numericOnly: true,
                 }"
                 label="CVV"
@@ -86,7 +89,7 @@
           <tr>
             <td>
               <form-input
-                :options="{ key: 'text', address: true }"
+                :options="{ key: 'text', address: true, roles: ['isAddress'] }"
                 label="ADDRESS"
               />
             </td>
