@@ -53,7 +53,7 @@ export default Vue.extend({
     }
   },
   computed: {
-    isValid() {
+    isValid(): boolean {
       const input = this.value.replace(' ', '')
       const { key, roles } = this.$props.options
       const flag = Validator.validate({ input, ...this.$props.options }, roles)
@@ -62,7 +62,7 @@ export default Vue.extend({
     },
   },
   methods: {
-    onClick() {
+    onClick(): void {
       const input: any = this.$refs.inputElement
       if (input.$el) {
         input.$el.focus()

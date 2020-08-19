@@ -26,7 +26,7 @@ export default Vue.extend({
   data() {
     return {
       userUri: '/avatar.svg',
-      logoUri: '/alayacare.logo.jpg',
+      logoUri: '/logo.jpg',
     }
   },
 })

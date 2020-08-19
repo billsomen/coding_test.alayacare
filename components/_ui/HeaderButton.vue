@@ -20,8 +20,5 @@ export default Vue.extend({
       default: () => null,
     },
   },
-  data: () => ({
-    active: 0,
-  }),
 })
 </script>
