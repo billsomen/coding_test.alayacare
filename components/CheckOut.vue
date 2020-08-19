@@ -113,10 +113,7 @@ export default {
   components: { IconLeftArrow, FormInput },
   data() {
     return {
-      cardNumber: null,
       creditCard: 'visa',
-      value: '',
-      hasVisiblePassword: true,
       creditCardList: [
         {
           code: 'visa',
