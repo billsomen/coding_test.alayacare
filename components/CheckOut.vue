@@ -11,7 +11,7 @@
       <tab-content title="COMPLETED" icon="''"> </tab-content>
     </form-wizard>
     <form class="center con-selects" action="#" method="post">
-      <div style="display: flex; margin-bottom: 20px;">
+      <div class="select-wrapper">
         <vs-select
           v-model="creditCard"
           color="danger"
@@ -148,5 +148,10 @@ export default {
 
 .vs-select-content {
   max-width: 100%;
+}
+
+.select-wrapper {
+  display: flex;
+  margin-bottom: 20px;
 }
 </style>

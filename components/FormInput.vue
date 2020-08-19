@@ -1,5 +1,5 @@
 <template>
-  <div class="input-wrapper" @click.prevent="onClick">
+  <div class="input-wrapper" @click="onClick">
     <cleave
       v-if="options.cleave"
       :id="inputId"
