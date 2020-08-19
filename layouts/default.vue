@@ -1,60 +1,33 @@
 <template>
   <div class="main-template">
     <div class="page-header">
-      <header-button text_="Home">
+      <header-button>
         <template v-slot:image>
-          <Logo />
+          <avatar :uri="logoUri" alt="logo-icon" />
         </template>
       </header-button>
-      <header-button text_="Alexia">
+      <header-button>
         <template v-slot:image>
-          <avatar />
+          <avatar :uri="userUri" alt="user-icon" />
         </template>
       </header-button>
     </div>
-    <nuxt style="width: 95%; max-width: 350px;" />
+    <nuxt class="page-container" />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import Avatar from '~/components/Avatar.vue'
-import Logo from '~/components/Logo.vue'
 import HeaderButton from '~/components/_ui/HeaderButton.vue'
 
 export default Vue.extend({
-  components: { Logo, Avatar, HeaderButton },
+  components: { Avatar, HeaderButton },
+  data() {
+    return {
+      userUri: '/avatar.svg',
+      logoUri: '/alayacare.logo.jpg',
+    }
+  },
 })
 </script>
-
-<style>
-body {
-  font-family: Roboto, serif;
-}
-
-.vs-button__content {
-  padding: 0;
-}
-
-.main-template {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.page-header {
-  height: 60px;
-  width: 95%;
-  max-width: 400px;
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-  align-items: center;
-  margin-top: 20px;
-  padding: 0 5px 0 5px;
-  border-radius: 30px;
-  border: 1px solid #ebeef5;
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-}
-</style>

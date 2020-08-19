@@ -1,14 +1,5 @@
 <template>
-  <div
-    class="input-wrapper"
-    style="
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      width: 100%;
-    "
-    @click.prevent="onClick"
-  >
+  <div class="input-wrapper" @click.prevent="onClick">
     <cleave
       v-if="options.cleave"
       :id="inputId"
@@ -24,7 +15,6 @@
       ref="inputElement"
       v-model="value"
       type="text"
-      :options="options"
       required
       name="card"
     />
@@ -35,11 +25,12 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue'
 import ValidatorObject from '~/static/js/validator'
 const Validator = new ValidatorObject()
 
-export default {
+export default Vue.extend({
   name: 'FormInput',
   props: {
     label: {
@@ -49,11 +40,14 @@ export default {
     options: {
       type: Object,
       required: true,
+      validator: (prop: Object) => {
+        const keys = Object.keys(prop)
+        return ['key', 'roles'].every((key) => keys.includes(key))
+      },
     },
   },
   data() {
     return {
-      cardNumber: null,
       value: '',
       inputId: new Date().getTime(),
     }
@@ -69,12 +63,22 @@ export default {
   },
   methods: {
     onClick() {
-      if (this.$refs.inputElement.$el) {
-        this.$refs.inputElement.$el.focus()
+      const input: any = this.$refs.inputElement
+      if (input.$el) {
+        input.$el.focus()
       } else {
-        this.$refs.inputElement.focus()
+        input.focus()
       }
     },
   },
-}
+})
 </script>
+
+<style>
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+</style>

@@ -1,3 +1,66 @@
+/* FONTS */
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+/*@import url('https://cdn.jsdelivr.net/npm/vuesax/dist/vuesax.css');*/
+
+/* Template / Body */
+
+body {
+  font-family: Roboto, serif;
+}
+
+div .vs-button__content {
+  padding: 0;
+}
+
+div .main-template {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+div .page-header {
+  height: 60px;
+  width: 95%;
+  max-width: 400px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  align-items: center;
+  margin-top: 20px;
+  padding: 0 5px 0 5px;
+  border-radius: 30px;
+  border: 1px solid #ebeef5;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+}
+
+/* Header Button */
+
+div .header-button {
+  border-radius: 25px;
+  padding: 5px;
+  height: 50px;
+}
+
+div .header-button-content {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  justify-content: space-between;
+}
+
+.text-view {
+  margin-left: 5px;
+  color: #23cfe3;
+}
+
+/* Pages */
+div .page-container {
+  /*width: min(350px, 95%);*/
+  width: 95%;
+  max-width: 350px;
+}
+
 /* Forms */
 
 .text-error {
@@ -16,18 +79,80 @@ label span {
   text-transform: uppercase;
   color: #e2e2e2;
   font-size: 10px;
-  /*flex-grow: 1;*/
 }
+
 label:hover {
   color: #a9a9a9;
 }
 
 input {
-  /*width: 80%;*/
   flex-grow: 4;
   background-color: transparent;
   height: 30px;
   padding: 0 5px;
   border: none;
-  /*font-weight: bold;*/
+}
+
+div .action-button {
+  width: 100%;
+  color: white;
+  height: 50px;
+  border: unset;
+  padding: 5px;
+  margin: unset;
+  max-width: 100%;
+  border-radius: unset;
+  font-size: 12px;
+  background-color: #00cfe4;
+}
+
+/* Checkout table */
+
+.checkout-table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.checkout-table > tbody > tr > td {
+  height: 50px;
+  border: 1px solid #e2e2e2;
+  padding: 0 5px;
+}
+
+.checkout-table > tbody > tr > td:hover {
+  background-color: white;
+  padding: 2px 0;
+}
+
+.checkout-table > tbody > tr > td:hover div label {
+  color: #ff4767;
+}
+
+/* Wizard customization */
+
+div .wizard-header {
+  display: none;
+}
+
+div .wizard-navigation {
+  height: 100px;
+}
+
+div .vue-form-wizard.xs div .wizard-icon-circle {
+  border: unset;
+  background-color: #6757fe;
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  top: 15px;
+}
+
+.stepTitle {
+  margin-top: 50px;
+  font-size: 12px;
+}
+
+.wizard-card-footer {
+  display: none;
 }

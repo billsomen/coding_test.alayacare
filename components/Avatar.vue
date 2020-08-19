@@ -1,6 +1,6 @@
 <template>
   <vs-avatar circle>
-    <img :src="uri" alt="user-avatar" />
+    <img :src="uri" :alt="alt" />
   </vs-avatar>
 </template>
 
@@ -8,12 +8,15 @@
 import Vue from 'vue'
 export default Vue.extend({
   name: 'Avatar',
-  data() {
-    return {
-      uri: '/avatar.svg',
-    }
+  props: {
+    uri: {
+      required: true,
+      type: String,
+    },
+    alt: {
+      required: true,
+      type: String,
+    },
   },
 })
 </script>
-
-<style scoped></style>

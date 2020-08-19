@@ -1,14 +1,12 @@
 <template>
-  <div style="width: 90%;">
-    <check-out />
-  </div>
+  <check-out />
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue'
 import CheckOut from '~/components/CheckOut'
-export default {
-  components: { CheckOut },
-}
-</script>
 
-<style></style>
+export default Vue.extend({
+  components: { CheckOut },
+})
+</script>

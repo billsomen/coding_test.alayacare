@@ -25,22 +25,3 @@ export default Vue.extend({
   }),
 })
 </script>
-
-<style scoped>
-.header-button {
-  border-radius: 25px;
-  padding: 5px;
-  height: 50px;
-}
-
-.header-button-content {
-  display: flex;
-  align-items: center;
-  width: fit-content;
-  justify-content: space-between;
-}
-.text-view {
-  margin-left: 5px;
-  color: #7f828b;
-}
-</style>

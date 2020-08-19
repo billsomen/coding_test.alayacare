@@ -27,13 +27,13 @@
           </vs-option>
         </vs-select>
       </div>
-      <table>
+      <table class="checkout-table">
         <tbody>
           <tr>
             <td>
               <form-input
                 label="Cardholder name"
-                :options="{ key: 'text', address: true, roles: ['isAddress'] }"
+                :options="{ key: 'text', roles: ['isAddress'] }"
               />
             </td>
           </tr>
@@ -78,7 +78,6 @@
                   key: 'text',
                   blocks: [3],
                   cleave: true,
-                  cvv: true,
                   roles: ['isValidCVV'],
                   numericOnly: true,
                 }"
@@ -89,7 +88,7 @@
           <tr>
             <td>
               <form-input
-                :options="{ key: 'text', address: true, roles: ['isAddress'] }"
+                :options="{ key: 'text', roles: ['isAddress'] }"
                 label="ADDRESS"
               />
             </td>
@@ -97,17 +96,17 @@
         </tbody>
       </table>
       <div style="display: flex; margin-bottom: 10px; padding: 0;">
-        <button class="action-button" type="submit">
+        <vs-button class="action-button">
           PROCEED PAYMENT
-        </button>
+        </vs-button>
       </div>
     </form>
   </div>
 </template>
 
-<script>
-import FormInput from './FormInput'
-import IconLeftArrow from './icons/LeftArrow'
+<script lang="ts">
+import IconLeftArrow from '~/components/icons/LeftArrow'
+import FormInput from '~/components/FormInput'
 
 export default {
   name: 'CheckOut',
@@ -115,7 +114,6 @@ export default {
   data() {
     return {
       cardNumber: null,
-      active: 1,
       creditCard: 'visa',
       value: '',
       hasVisiblePassword: true,
@@ -136,7 +134,7 @@ export default {
     }
   },
   methods: {
-    onEditInput(data) {
+    onEditInput(data: any) {
       console.dir(data)
     },
   },
@@ -144,8 +142,6 @@ export default {
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
-@import url('https://cdn.jsdelivr.net/npm/vuesax/dist/vuesax.css');
 .vs-select__input {
   max-width: 100%;
   border: 1px solid #e2e2e2;
@@ -155,61 +151,5 @@ export default {
 
 .vs-select-content {
   max-width: 100%;
-}
-.action-button {
-  width: 100%;
-  color: white;
-  height: 50px;
-  border: unset;
-  padding: 5px;
-  max-width: 100%;
-  border-radius: unset;
-  font-size: 12px;
-  background-color: #00cfe4;
-}
-
-table {
-  border-collapse: collapse;
-  width: 100%;
-  margin-bottom: 20px;
-}
-
-td {
-  height: 50px;
-  border: 1px solid #e2e2e2;
-  padding: 0 5px;
-}
-
-td:hover {
-  background-color: white;
-  /*background-color: rgba(255, 73, 104, 0.29);*/
-  padding: 10px 0;
-  /*border-radius: 10px;*/
-}
-td:hover div label {
-  color: #ff4767;
-}
-
-.wizard-header {
-  display: none;
-}
-.wizard-navigation {
-  height: 100px;
-}
-.vue-form-wizard.xs .wizard-icon-circle {
-  border: unset;
-  background-color: #6757fe;
-  width: 10px;
-  height: 10px;
-  position: absolute;
-  top: 15px;
-}
-.stepTitle {
-  margin-top: 50px;
-  font-size: 12px;
-}
-
-.wizard-card-footer {
-  display: none;
 }
 </style>
