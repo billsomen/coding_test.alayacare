@@ -24,9 +24,6 @@ Validator.prototype.validate = function (value, rules) {
     rules.forEach((rule) => {
       response[rule] = self[rule](value)
     })
-    /* return rules.every(function (rule) {
-      return self[rule](value)
-    }) */
   } else {
     response.isNotEmpty = false
   }
@@ -57,7 +54,11 @@ Validator.prototype.isNotEmpty = function (value) {
 }
 
 Validator.prototype.isValidCard = function (value) {
-  const { input, cardType: type } = value
+  let type = 'visa'
+  const { input } = value
+  if ('cardType' in value) {
+    type = value.cardType
+  }
   return CreditCardValidator.prototype.check(input, type)
 }
 
@@ -79,7 +80,8 @@ Validator.prototype.errorMessages = (flags) => {
     isValidCard: `The card number is not valid for the card selected card type`,
     isDateValid: `The date format should be : YY/MM`,
     isValidCVV: `The CVV should be 3 characters long`,
-    isNotEmpty: `This field should not be empty`,
+    // isNotEmpty: `This field should not be empty`,
+    isNotEmpty: `* required field`,
   }
   const response = []
   Object.keys(flags).forEach((key) => {
