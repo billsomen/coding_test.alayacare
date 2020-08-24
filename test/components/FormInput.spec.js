@@ -20,6 +20,7 @@ afterEach(() => {
   wrapper.destroy()
 })
 
+// most of the test are run on the validator test.
 describe('FormInput', () => {
   test('is a Vue instance', () => {
     expect(wrapper.vm).toBeTruthy()
@@ -32,14 +33,5 @@ describe('FormInput', () => {
   test('is input mounted', () => {
     wrapper.setProps({ cleave: false })
     expect(wrapper.vm.$refs.inputElement.$el).toBeDefined()
-  })
-
-  test('is focusing on div click', async () => {
-    const divWrapper = wrapper.find('.input-wrapper')
-    divWrapper.vm.$emit('click')
-    await divWrapper.vm.$nextTick()
-
-    const onClick = jest.spyOn(wrapper.vm, 'onClick')
-    expect(onClick).toHaveBeenCalled()
   })
 })

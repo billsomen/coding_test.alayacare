@@ -4,8 +4,7 @@
       <i
         v-for="(message, key) in generateErrorMessage(validatorFlags.flag)"
         :key="key"
-        style="color: red; font-size: 10px;"
-        class="text-error"
+        class="text-error input-text-message"
       >
         {{ message }}
       </i>
@@ -30,7 +29,6 @@
         name="card"
       />
       <label :for="inputId">
-        <!--        <span>{{ label }}</span>-->
         <span v-if="isValid" class="valid">{{ label }}</span>
         <span v-else class="not-valid text-error">{{ label }}</span>
       </label>
@@ -79,8 +77,6 @@ export default Vue.extend({
         return flag.all
       }
       return false
-      // this.$emit('onEdit', { key, flag })
-      // return this.validatorFlags.flag.all
     },
   },
   methods: {
@@ -92,7 +88,7 @@ export default Vue.extend({
         input.focus()
       }
     },
-    generateErrorMessage(flags): string[] {
+    generateErrorMessage(flags: any): string[] {
       return Validator.errorMessages(flags)
     },
   },
@@ -105,5 +101,10 @@ export default Vue.extend({
   align-items: center;
   justify-content: space-between;
   width: 100%;
+}
+
+.input-text-message {
+  color: red;
+  font-size: 10px;
 }
 </style>

@@ -53,8 +53,8 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import IconLeftArrow from '~/components/icons/LeftArrow'
-import FormInput from '~/components/FormInput'
+import IconLeftArrow from '~/components/icons/LeftArrow.vue'
+import FormInput from '~/components/FormInput.vue'
 
 export default Vue.extend({
   name: 'CheckOut',
