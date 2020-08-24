@@ -71,6 +71,10 @@ div .page-container {
   color: #ff4767
 }
 
+.black {
+  color: black;
+}
+
 .valid {
   color: green;
 }

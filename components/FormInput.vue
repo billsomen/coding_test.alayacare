@@ -1,27 +1,40 @@
 <template>
-  <div class="input-wrapper" @click="onClick">
-    <cleave
-      v-if="options.cleave"
-      :id="inputId"
-      ref="inputElement"
-      v-model="value"
-      :options="options"
-      required
-      name="card"
-    ></cleave>
-    <input
-      v-else
-      :id="inputId"
-      ref="inputElement"
-      v-model="value"
-      type="text"
-      required
-      name="card"
-    />
-    <label :for="inputId">
-      <span v-if="isValid" class="valid">{{ label }}</span>
-      <span v-else class="not-valid text-error">{{ label }}</span>
-    </label>
+  <div>
+    <div v-if="!isValid" style="position: relative; top: 0;">
+      <i
+        v-for="(message, key) in generateErrorMessage(validatorFlags.flag)"
+        :key="key"
+        style="color: red; font-size: 10px;"
+        class="text-error"
+      >
+        {{ message }}
+      </i>
+    </div>
+    <div class="input-wrapper" @click="onClick">
+      <cleave
+        v-if="options.cleave"
+        :id="inputId"
+        ref="inputElement"
+        v-model="value"
+        :options="options"
+        required
+        name="card"
+      ></cleave>
+      <input
+        v-else
+        :id="inputId"
+        ref="inputElement"
+        v-model="value"
+        type="text"
+        required
+        name="card"
+      />
+      <label :for="inputId">
+        <!--        <span>{{ label }}</span>-->
+        <span v-if="isValid" class="valid">{{ label }}</span>
+        <span v-else class="not-valid text-error">{{ label }}</span>
+      </label>
+    </div>
   </div>
 </template>
 
@@ -53,12 +66,21 @@ export default Vue.extend({
     }
   },
   computed: {
-    isValid(): boolean {
+    validatorFlags(): any {
       const input = this.value.replace(' ', '')
-      const { key, roles } = this.$props.options
+      const { key, roles, name } = this.$props.options
       const flag = Validator.validate({ input, ...this.$props.options }, roles)
-      this.$emit('onEdit', { key, flag })
-      return flag
+      return { flag, key, name }
+    },
+    isValid(): boolean {
+      if (this.validatorFlags) {
+        const { key, flag, name } = this.validatorFlags
+        this.$emit('onEdit', { key, flag, name, value: this.value })
+        return flag.all
+      }
+      return false
+      // this.$emit('onEdit', { key, flag })
+      // return this.validatorFlags.flag.all
     },
   },
   methods: {
@@ -69,6 +91,9 @@ export default Vue.extend({
       } else {
         input.focus()
       }
+    },
+    generateErrorMessage(flags): string[] {
+      return Validator.errorMessages(flags)
     },
   },
 })

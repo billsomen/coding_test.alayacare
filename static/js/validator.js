@@ -19,13 +19,21 @@ const Validator = function () {}
 
 Validator.prototype.validate = function (value, rules) {
   const self = this
+  const response = {}
   if (this.isNotEmpty(value.input)) {
-    return rules.every(function (rule) {
-      return self[rule](value)
+    rules.forEach((rule) => {
+      response[rule] = self[rule](value)
     })
+    /* return rules.every(function (rule) {
+      return self[rule](value)
+    }) */
   } else {
-    return false
+    response.isNotEmpty = false
   }
+  response.all = Object.values(response).every(
+    (ruleValue) => ruleValue === true
+  )
+  return response
 }
 
 Validator.prototype.isString = function (value) {
@@ -58,11 +66,26 @@ Validator.prototype.isValidCVV = function (value) {
   const flagNumeric = +input
   const flagLen = blocks && input.length === blocks[0]
 
-  return flagLen && flagNumeric
+  return flagLen && Boolean(flagNumeric)
 }
 
 Validator.prototype.isAddress = function (value) {
   return this.isString(value) && value.input.length > 5
+}
+
+Validator.prototype.errorMessages = (flags) => {
+  const messages = {
+    isAddress: `The field should be at least 5 characters long`,
+    isValidCard: `The card number is not valid for the card selected card type`,
+    isDateValid: `The date format should be : YY/MM`,
+    isValidCVV: `The CVV should be 3 characters long`,
+    isNotEmpty: `This field should not be empty`,
+  }
+  const response = []
+  Object.keys(flags).forEach((key) => {
+    key in messages && response.push(messages[key])
+  })
+  return response
 }
 
 export default Validator

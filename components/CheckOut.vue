@@ -4,12 +4,14 @@
       <icon-left-arrow :size="15" />
       <span>PAYMENT</span>
     </div>
-    <form-wizard step-size="xs" :start-index="2" color="#6757FE">
+    <!--    this form wizards is not functional. -->
+    <form-wizard step-size="xs" :start-index="2" color="#6757FE" hide-buttons>
       <tab-content title="PRODUCTS" icon="''"></tab-content>
       <tab-content title="SHIPPING" icon="''"> </tab-content>
       <tab-content title="CHECKOUT" icon="''"> </tab-content>
       <tab-content title="COMPLETED" icon="''"> </tab-content>
     </form-wizard>
+
     <form class="center con-selects" action="#" method="post">
       <div class="select-wrapper">
         <vs-select
@@ -29,74 +31,19 @@
       </div>
       <table class="checkout-table">
         <tbody>
-          <tr>
+          <tr v-for="(item, key) in formParams" :key="key">
             <td>
               <form-input
-                label="Cardholder name"
-                :options="{ key: 'text', roles: ['isAddress'] }"
-              />
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <form-input
-                :options="{
-                  key: 'card',
-                  cleave: true,
-                  creditCard: true,
-                  cardType: creditCard,
-                  delimiter: ' - ',
-                  roles: ['isValidCard'],
-                }"
-                :type="creditCard"
-                label="Card number"
+                :label="item.label"
+                :options="getOptions(key)"
                 @onEdit="onEditInput($event)"
-              />
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <form-input
-                :options="{
-                  key: 'date',
-                  cleave: true,
-                  date: true,
-                  datePattern: ['m', 'y'],
-                  delimiter: ' / ',
-                  dateMin: '20-01',
-                  dateMax: '31-12',
-                  roles: ['isDateValid'],
-                }"
-                label="Expire date"
-              />
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <form-input
-                :options="{
-                  key: 'text',
-                  blocks: [3],
-                  cleave: true,
-                  roles: ['isValidCVV'],
-                  numericOnly: true,
-                }"
-                label="CVV"
-              />
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <form-input
-                :options="{ key: 'text', roles: ['isAddress'] }"
-                label="ADDRESS"
               />
             </td>
           </tr>
         </tbody>
       </table>
-      <div style="display: flex; margin-bottom: 10px; padding: 0;">
-        <vs-button class="action-button">
+      <div class="submit-wrapper">
+        <vs-button class="action-button" @click="onSubmit">
           PROCEED PAYMENT
         </vs-button>
       </div>
@@ -105,10 +52,11 @@
 </template>
 
 <script lang="ts">
+import Vue from 'vue'
 import IconLeftArrow from '~/components/icons/LeftArrow'
 import FormInput from '~/components/FormInput'
 
-export default {
+export default Vue.extend({
   name: 'CheckOut',
   components: { IconLeftArrow, FormInput },
   data() {
@@ -128,14 +76,86 @@ export default {
           label: 'AMERICAN EXPRESS',
         },
       ],
+      form: {
+        cardholderName: '',
+        cardNumber: '',
+        expireDate: '',
+        cvv: '',
+        address: '',
+      } as any,
+      formFlags: {} as any,
+      formParams: {
+        cardholderName: {
+          options: { key: 'text', roles: ['isAddress'] },
+          label: 'Cardholder name',
+        },
+        cardNumber: {
+          options: {
+            key: 'card',
+            cleave: true,
+            creditCard: true,
+            // cardType: this.creditCard,
+            delimiter: ' - ',
+            roles: ['isValidCard'],
+          },
+          label: 'Card number',
+        },
+        expireDate: {
+          options: {
+            key: 'date',
+            cleave: true,
+            date: true,
+            datePattern: ['m', 'y'],
+            delimiter: ' / ',
+            dateMin: '20-01',
+            dateMax: '31-12',
+            roles: ['isDateValid'],
+          },
+          label: 'Expire date',
+        },
+        cvv: {
+          options: {
+            key: 'text',
+            blocks: [3],
+            cleave: true,
+            roles: ['isValidCVV'],
+            numericOnly: true,
+          },
+          label: 'CVV',
+        },
+        address: {
+          options: { key: 'text', roles: ['isAddress'] },
+          label: 'ADDRESS',
+        },
+      } as any,
     }
   },
   methods: {
     onEditInput(data: any) {
-      console.dir(data)
+      if ('flag' in data) {
+        const { flag, value, name } = data
+        this.formFlags[name] = flag.all
+        this.form[name] = value
+      }
+    },
+    getOptions(name: string): any {
+      const options: any = this.formParams[name].options
+      options.name = name
+      if (name === 'cardNumber') {
+        options.cardType = this.creditCard
+      }
+      return options
+    },
+    onSubmit() {
+      const isValid = Object.values(this.formFlags).every((flag) => flag)
+      if (isValid) {
+        alert('Posting data')
+      } else {
+        alert('The form is not valid. Check the fields for precise error')
+      }
     },
   },
-}
+})
 </script>
 
 <style>
@@ -153,5 +173,10 @@ export default {
 .select-wrapper {
   display: flex;
   margin-bottom: 20px;
+}
+.submit-wrapper {
+  display: flex;
+  margin-bottom: 10px;
+  padding: 0;
 }
 </style>
